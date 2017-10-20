@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <title>{% block title %} SF3 Network{% endblock %}</title>
+        {% block stylesheets %} <!-- Incluir los css --> {% endblock %}
+        {% block javascripts %} <!-- Incluir los javascripts --> {% endblock %}
+    </head>
+    <body>
+        <header>
+            <h1>Social Network</h1>
+        </header>
+        <section id="content">
+            {% block content %} Content defailt {% endblock %}
+        </section>
+        <footer>
+            <hr/>
+            <p>Copyright</p>
+        </footer>
+    </body>
+</html>
