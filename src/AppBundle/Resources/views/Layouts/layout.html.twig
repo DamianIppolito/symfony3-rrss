@@ -3,8 +3,15 @@
     <head>
         <meta charset="utf-8"/>
         <title>{% block title %} SF3 Network{% endblock %}</title>
-        {% block stylesheets %} <!-- Incluir los css --> {% endblock %}
-        {% block javascripts %} <!-- Incluir los javascripts --> {% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}" type="text/css"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.cosmo.min.css') }}" type="text/css"/>
+            <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" type="text/css"/>
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('assets/js/jquery.min.js') }}" type="application/javascript"></script>
+            <script src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}" type="application/javascript"></script>
+        {% endblock %}
     </head>
     <body>
         <header>
