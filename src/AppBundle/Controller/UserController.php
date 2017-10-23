@@ -13,10 +13,15 @@ use BackendBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
+class UserController extends Controller{
+    private $session;
 
-class UserController extends Controller
-{
+    public function __construct(){
+        $this->session = new Session();
+    }
+
     public function loginAction(Request $request){
         return $this->render('AppBundle:User:login.html.twig', array(
             "title" => "PRUEBA"
@@ -29,6 +34,7 @@ class UserController extends Controller
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
         $status = '';
+        $message_class='alert-danger';
         if($form->isSubmitted()){
             if ($form->isValid()){
                 $em = $this->getDoctrine()->getEntityManager();
@@ -50,6 +56,9 @@ class UserController extends Controller
                     $flush = $em->flush();
                     if ($flush == null){
                         $status = 'Te has registrado correctamente';
+                        $message_class='alert-success';
+                        $this->session->getFlashBag()->add("status",$status);
+                        $this->session->getFlashBag()->add("message_class",$message_class);
                         return $this->redirect('login');
                     }else{
                         $status = 'No te has registrado correctamente';
@@ -62,6 +71,8 @@ class UserController extends Controller
                 $status = 'No te has registrado correctamente';
             }
 
+            $this->session->getFlashBag()->add("status",$status);
+            $this->session->getFlashBag()->add("message_class",$message_class);
         }
         return $this->render('AppBundle:User:register.html.twig', array(
             'form' => $form->createView()

@@ -1,6 +1,12 @@
 /* GENERALES */
 body{background: #eeeeee}
 
+.flashbag-container{
+    padding: 0;
+    margin:0 auto;
+    float: none;
+}
+
 /* REGISTRO */
 .box-form{
     background: white;
