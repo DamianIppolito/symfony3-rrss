@@ -9,11 +9,12 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class PublicationController
+class PublicationController extends Controller
 {
     public function indexAction(Request $request){
-        echo "Acción index";
-        die();
+        return $this->render('AppBundle:Publication:home.html.twig', array(
+        ));
     }
 }
