@@ -24,7 +24,7 @@ body{background: #eeeeee}
 }
 
 /* REGISTRO */
-.box-form{
+.box-form, .box-default{
     background: white;
     border: 1px solid #cccccc;
     padding: 0 20px 20px;
@@ -34,4 +34,26 @@ body{background: #eeeeee}
 
 .box-form input{
     margin-bottom: 10px;
+}
+
+/* GENTE */
+.user-item .avatar{
+    background: #eeeeee;
+    border-radius: 500px;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    float: left;
+    margin-right: 12px;
+    margin-top: -5px;
+}
+
+.user-item .avatar img{
+    height: 100%;
+    text-align: center;
+}
+
+.user-item .user-item-content{
+    padding: 10px;
+    margin-left: 85px;
 }
