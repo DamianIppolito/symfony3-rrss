@@ -48,6 +48,13 @@
                                     </a>
                                 </li>
                             </ul>
+                        {% else %}
+                            <ul class="nav navbar-nav">
+                                <a class="navbar-brand" href="{{ path('user_list') }}">
+                                    <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                                    Gente
+                                </a>
+                            </ul>
                         {% endif %}
                         {% if app.user != null %}
                             <ul class="nav navbar-nav navbar-right">
