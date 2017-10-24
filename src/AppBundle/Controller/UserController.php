@@ -121,7 +121,7 @@ class UserController extends Controller{
                             ->setParameter('email', $form->get('email')->getData())
                             ->setParameter('nick', $form->get('nick')->getData());
                 $user_isset = $query->getResult();
-                if(($user->getEmail() == $user_isset[0]->getEmail() && $user->getNick() == $user_isset[0]->getNick()) || count($user_isset) == 0){
+                if(count($user_isset) == 0 || ($user->getEmail() == $user_isset[0]->getEmail() && $user->getNick() == $user_isset[0]->getNick())){
                     //upload file
                     $file = $form['image']->getData();
                     if(!empty($file) && $file != null){
