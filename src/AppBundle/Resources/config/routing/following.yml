@@ -2,3 +2,7 @@ following_follow:
     path: /follow
     defaults: {_controller: AppBundle:Following:follow}
     methods: [POST]
+following_unfollow:
+    path: /unfollow
+    defaults: {_controller: AppBundle:Following:unfollow}
+    methods: [POST]
