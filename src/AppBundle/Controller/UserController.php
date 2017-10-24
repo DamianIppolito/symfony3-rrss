@@ -109,7 +109,51 @@ class UserController extends Controller{
 
     public function editUserAction(Request $request){
         $user = $this->getUser();
+        $user_image = $user->getImage();
         $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        $status = '';
+        $message_class='alert-danger';
+        if($form->isSubmitted()){
+            if ($form->isValid()){
+                $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nick = :nick')
+                            ->setParameter('email', $form->get('email')->getData())
+                            ->setParameter('nick', $form->get('nick')->getData());
+                $user_isset = $query->getResult();
+                if(($user->getEmail() == $user_isset[0]->getEmail() && $user->getNick() == $user_isset[0]->getNick()) || count($user_isset) == 0){
+                    //upload file
+                    $file = $form['image']->getData();
+                    if(!empty($file) && $file != null){
+                        $ext = $file->guessExtension();
+                        if($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'gif'){
+                            $file_name = $user->getId().time().'.'.$ext;
+                            $file->move('uploads/users',$file_name);
+                            $user->setImage($file_name);
+                        }
+                    }else{
+                        $user->setImage($user_image);
+                    }
+
+                    $em->persist($user);
+                    $flush = $em->flush();
+                    if ($flush == null){
+                        $status = 'Has modificado tu datos correctamente';
+                        $message_class='alert-success';
+                    }else{
+                        $status = 'No has modificado tu datos correctamente';
+                    }
+                }else{
+                    $status = 'El usuario ya existe';
+                }
+
+            }else{
+                $status = 'No has modificado tu datos correctamente';
+            }
+
+            $this->session->getFlashBag()->add("status",$status);
+            $this->session->getFlashBag()->add("message_class",$message_class);
+        }
 
         return $this->render('AppBundle:User:edit_user.html.twig', array(
             'form' => $form->createView()
