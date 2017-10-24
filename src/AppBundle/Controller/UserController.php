@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\RegisterType;
+use AppBundle\Form\UserType;
 use BackendBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -107,8 +108,11 @@ class UserController extends Controller{
     }
 
     public function editUserAction(Request $request){
-        return $this->render('AppBundle:User:edit_user.html.twig', array(
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
 
+        return $this->render('AppBundle:User:edit_user.html.twig', array(
+            'form' => $form->createView()
         ));
     }
 }
