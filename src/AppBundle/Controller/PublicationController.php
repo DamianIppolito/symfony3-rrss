@@ -60,7 +60,7 @@ class PublicationController extends Controller{
                     $publication->setDocument(null);
                 }
 
-                $publication->getUser($user);
+                $publication->setUser($user);
                 $publication->setCreatedAt(new \DateTime('now'));
                 $em->persist($publication);
                 $flush = $em->flush();
@@ -78,8 +78,38 @@ class PublicationController extends Controller{
             return $this->redirectToRoute('home_publications');
         }
 
+        $publications = $this->getPublications($request);
+
         return $this->render('AppBundle:Publication:home.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'pagination' => $publications
         ));
+    }
+
+    public function getPublications(Request $request){
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $publications_repo = $em->getRepository('BackendBundle:Publication');
+        $following_repo = $em->getRepository('BackendBundle:Following');
+
+        $following = $following_repo->findBy(array('user' => $user));
+        $following_array = array();
+        foreach ($following as $followed){
+            $following_array[] = $followed->getFollowed();
+        }
+
+        $query = $publications_repo->createQueryBuilder('p')
+                ->where('p.user = (:user_id) OR p.user IN (:following)')
+                ->setParameter('user_id', $user->getId())
+                ->setParameter('following', $following_array)
+                ->orderBy('p.id', 'DESC')
+                ->getQuery();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page',1),
+            5
+        );
+        return $pagination;
     }
 }
