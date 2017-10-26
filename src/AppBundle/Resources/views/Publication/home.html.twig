@@ -22,7 +22,7 @@
                         </div>
                         <div class="publication-item-content">
                             <p>
-                                <a class="pub-name-link" href="#">
+                                <a class="pub-name-link" href="{{ path('user_profile', {'nickname': publication.user.nick}) }}">
                                     {{ publication.user.name }} {{ publication.user.surname }}
                                 </a>
                                  -
@@ -96,7 +96,7 @@
                 {% endif %}
             </div>
             <div class="name-surname pull-left">
-                <a href="#">{{ app.user.name }} {{ app.user.surname }}</a>
+                <a href="{{ path('user_profile', {'nickname': app.user.nick}) }}">{{ app.user.name }} {{ app.user.surname }}</a>
                 <div class="clearfix"></div>
                 <div class="nickname">{{ app.user.nick }}</div>
             </div>
