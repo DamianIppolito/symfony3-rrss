@@ -54,8 +54,15 @@
                             {% endif %}
 
                             <div class="pull-right like">
+                                {% if app.user | liked(publication) %}
+                                    {%  set hidden_like = 'hidden ' %}
+                                    {%  set hidden_unlike = '' %}
+                                {% else %}
+                                    {%  set hidden_like = '' %}
+                                    {%  set hidden_unlike = 'hidden ' %}
+                                {% endif %}
                                 <span data-id="{{ publication.id }}"
-                                      class="btn-like glyphicon glyphicon-heart-empty"
+                                      class="{{ hidden_like }}btn-like glyphicon glyphicon-heart-empty"
                                       aria-hidden="true"
                                       data-toggle="tooltip"
                                       data-placement="bottom"
@@ -63,7 +70,7 @@
                                 </span>
 
                                 <span data-id="{{ publication.id }}"
-                                      class="btn-unlike active hidden glyphicon glyphicon-heart-empty"
+                                      class="{{ hidden_unlike }}btn-unlike active glyphicon glyphicon-heart-empty"
                                       aria-hidden="true"
                                       data-toggle="tooltip"
                                       data-placement="bottom"
