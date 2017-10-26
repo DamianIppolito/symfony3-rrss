@@ -1,0 +1,88 @@
+{% extends "AppBundle:Layouts:layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {#<script src="{{ asset('assets/js/custom/home.js') }}" type="text/javascript"></script>#}
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-lg-10 box-default profile-box">
+        <div id="user-publications">
+            {% for publication in pagination %}
+                <div class="col-lg-12 publication-item">
+                    <div class="avatar">
+                        {% if publication.user.image == null %}
+                            <img src="{{ asset('assets/images/default.png') }}" alt="{{ publication.user.name }}{{ publication.user.surname }}"/>
+                        {% else %}
+                            <img src="{{ asset('uploads/users/'~publication.user.image) }}" alt="{{ publication.user.name }}{{ publication.user.surname }}"/>
+                        {% endif %}
+                    </div>
+                    <div class="publication-item-content">
+                        <p>
+                            <a class="pub-name-link" href="#">
+                                {{ publication.user.name }} {{ publication.user.surname }}
+                            </a>
+                            -
+                            {{ publication.user.nick }}
+                            -
+                            <span class="pub-date">{{ publication.createdAt | long_time }}</span>
+                        </p>
+
+                        <p>{{ publication.text }}</p>
+
+                        {% if (publication.user.id is defined) and (publication.user.id == app.user.id) %}
+                            <span data-id="{{ publication.id }}" class="btn-delete-pub glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        {% endif %}
+
+                        {% if (publication.document is defined) and (publication.document != null)%}
+                            <a href="{{ asset('uploads/publications/documents/'~publication.document) }}"
+                               class="btn-doc glyphicon glyphicon-save"
+                               aria-hidden="true"
+                               target="_blank">
+                            </a>
+                        {% endif %}
+
+                        {% if (publication.image is defined) and (publication.image != null)%}
+                            <span class="btn-image glyphicon glyphicon-picture" aria-hidden="true"></span>
+                            <div class="clearfix"></div>
+                            <div class="pub-image">
+                                <img src="{{ asset('uploads/publications/images/'~publication.image) }}" alt="{{ publication.user.name }} {{ publication.user.surname }}"/>
+                            </div>
+                        {% endif %}
+
+                        <div class="pull-right like">
+                            {% if app.user | liked(publication) %}
+                                {%  set hidden_like = 'hidden ' %}
+                                {%  set hidden_unlike = '' %}
+                            {% else %}
+                                {%  set hidden_like = '' %}
+                                {%  set hidden_unlike = 'hidden ' %}
+                            {% endif %}
+                            <span data-id="{{ publication.id }}"
+                                  class="{{ hidden_like }}btn-like glyphicon glyphicon-heart-empty"
+                                  aria-hidden="true"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  title="Me Gusta">
+                                </span>
+
+                            <span data-id="{{ publication.id }}"
+                                  class="{{ hidden_unlike }}btn-unlike active glyphicon glyphicon-heart-empty"
+                                  aria-hidden="true"
+                                  data-toggle="tooltip"
+                                  data-placement="bottom"
+                                  title="Ya no me gusta">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr/>
+                </div>
+            {% endfor %}
+            <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+{% endblock %}
