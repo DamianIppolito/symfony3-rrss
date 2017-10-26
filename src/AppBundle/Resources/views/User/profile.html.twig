@@ -8,6 +8,37 @@
 {% block content %}
 
     <div class="col-lg-10 box-default profile-box">
+        <div id="user-profile-info">
+            <div class="avatar">
+                {% if user.image == null %}
+                    <img src="{{ asset('assets/images/default.png') }}" alt="{{ user.name }}{{ user.surname }}"/>
+                {% else %}
+                    <img src="{{ asset('uploads/users/'~user.image) }}" alt="{{ user.name }}{{ user.surname }}"/>
+                {% endif %}
+            </div>
+            <div class="name-surname">
+                <h2>{{ user.name }} {{ user.surname }}</h2>
+                <div class="clearfix"></div>
+                <div class="nickname">{{ user.nick }}</div>
+            </div>
+            <div class="bio">{{ user.bio }}</div>
+            <div class="clearfix"></div>
+            <div id="user-stats">
+                {% for key,value in user | user_stats %}
+                    <div class="following-data">
+                        <a href="#">
+                        <span class="label-stat">
+                            {{ key }}
+                        </span>
+                            <span class="number-stat">
+                            {{ value }}
+                        </span>
+                        </a>
+                    </div>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+        </div>
         <div id="user-publications">
             {% for publication in pagination %}
                 <div class="col-lg-12 publication-item">

@@ -26,6 +26,29 @@ body{background: #eeeeee}
     margin-left: 85px;
 }
 
+.following-data{
+    width: 25%;
+    float: left;
+    text-align: center;
+    border-top: 1px solid #cccccc;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.following-data a{color: #444444;}
+
+.following-data a:hover{
+    color: #000000;
+    text-decoration: none;
+}
+
+.following-data .label-stat{display: block;}
+
+.following-data .number-stat{
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+}
 
 /* HEADER  */
 .navbar-collapse .avatar{
@@ -76,30 +99,6 @@ body{background: #eeeeee}
 
 #user-card .nickname {opacity: 0.7}
 
-#user-card .following-data{
-    width: 25%;
-    float: left;
-    text-align: center;
-    border-top: 1px solid #cccccc;
-    padding: 5px;
-    margin-top: 10px;
-}
-
-#user-card .following-data a{color: #444444;}
-
-#user-card .following-data a:hover{
-    color: #000000;
-    text-decoration: none;
-}
-
-#user-card .following-data .label-stat{display: block;}
-
-#user-card .following-data .number-stat{
-    display: block;
-    font-size: 16px;
-    font-weight: bold;
-}
-
 #new-publication input, #new-publication textarea{margin-bottom: 10px;}
 
 .pub-name-link{
@@ -140,4 +139,47 @@ body{background: #eeeeee}
 .like .active{
     color: red;
     cursor: pointer;
+}
+
+/* PERFILES */
+.profile-box{
+    padding:20px;
+    margin: 0 auto;
+    float: none;
+}
+
+.profile-box #user-profile-info{margin-bottom: 60px;}
+
+.profile-box #user-profile-info .avatar{
+    width: 180px;
+    height: 180px;
+    margin:0 auto;
+    float: none;
+}
+
+.profile-box #user-profile-info .name-surname{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-box #user-profile-info .bio{
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-box #user-profile-info #user-stats{
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    width: 47%;
+    text-align: center;
+}
+
+.profile-box #user-profile-info #user-stats .following-data{
+    border-top: none;
+    margin-top: 0px;
 }
