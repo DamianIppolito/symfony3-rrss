@@ -84,3 +84,21 @@ body{background: #eeeeee}
 }
 
 .pub-date{color:gray;}
+
+.pub-image{
+    display: none;
+    transition: all 300ms;
+}
+
+.pub-image img {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.publication-item-content .glyphicon{
+    margin-right: 7px;
+    cursor: pointer;
+    color: #444444;
+}

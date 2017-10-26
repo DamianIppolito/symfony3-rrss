@@ -30,5 +30,7 @@ $(document).ready(function(){
 });
 
 function buttons() {
-
+    $('.btn-image').unbind().click(function(){
+        $(this).parent().find('.pub-image').fadeToggle();
+    });
 }
