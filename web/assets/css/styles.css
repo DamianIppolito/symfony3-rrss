@@ -113,7 +113,7 @@ body{background: #eeeeee}
     cursor: pointer;
 }
 
-.like .btn-like.active{
+.like .active{
     color: red;
     cursor: pointer;
 }
