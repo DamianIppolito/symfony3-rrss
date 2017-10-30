@@ -40,7 +40,7 @@
                             </p>
                             <p>{{ user.bio }}</p>
                         </div>
-                        {% if app.user.id != user.id %}
+                        {% if app.user.id != user.id and type == 'following'%}
                             <div class="pull-right buttons-following">
                                 <button class="btn btn-sm btn-success btn-follow{% if app.user|following(user) %} hidden{% endif %}" data-followed="{{ user.id }}">
                                     <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>

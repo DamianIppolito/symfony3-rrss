@@ -8,10 +8,15 @@
 {% block content %}
 
     <div class="container">
-        <div id="timeline" class="col-lg-7 box-default pull-left">
-            <h1 class="box-header">Timeline</h1>
+        <div id="timeline" class="col-lg-12 box-default pull-left">
+            <h1 class="box-header">Publicaciones que le gustan a {{ profile_user.nick }}</h1>
             <div class="box-content">
-                {% for publication in pagination %}
+                <div class="count">
+                    <span class="label label-primary">Total de publiciones: {{ pagination.getTotalItemCount }}</span>
+                </div>
+                <hr/>
+                {% for like in pagination %}
+                    {% set publication = like.publication %}
                     <div class="col-lg-12 publication-item">
                         <div class="avatar">
                             {% if publication.user.image == null %}
@@ -86,47 +91,6 @@
                 <div class="navigation">{{ knp_pagination_render(pagination) }}</div>
             </div>
 
-        </div>
-        <div class="col-lg-4 box-default pull-left" id="user-card">
-            <div class="avatar pull-left">
-                {% if app.user.image == null %}
-                    <img src="{{ asset('assets/images/default.png') }}" alt="{{ app.user.name }}{{ app.user.surname }}"/>
-                {% else %}
-                    <img src="{{ asset('uploads/users/'~app.user.image) }}" alt="{{ app.user.name }}{{ app.user.surname }}"/>
-                {% endif %}
-            </div>
-            <div class="name-surname pull-left">
-                <a href="{{ path('user_profile', {'nickname': app.user.nick}) }}">{{ app.user.name }} {{ app.user.surname }}</a>
-                <div class="clearfix"></div>
-                <div class="nickname">{{ app.user.nick }}</div>
-            </div>
-            <div class="clearfix"></div>
-            {% for key,value in app.user | user_stats %}
-                {% if key == 'Siguiendo' %}
-                    {% set href = path('following_users',{'nickname': app.user.nick}) %}
-                {% elseif key == 'Seguidores'%}
-                    {% set href = path('followed_users',{'nickname': app.user.nick}) %}
-                {% elseif key == 'Publicaciones'%}
-                    {% set href = path('user_profile',{'nickname': app.user.nick}) %}
-                {% else %}
-                    {% set href = path('user_likes',{'nickname': app.user.nick}) %}
-                {% endif %}
-                <div class="following-data">
-                    <a href="{{ href }}">
-                        <span class="label-stat">
-                            {{ key }}
-                        </span>
-                        <span class="number-stat">
-                            {{ value }}
-                        </span>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="col-lg-4 box-default pull-left" id="new-publication">
-            <h2 class="box-header">Crear publicación</h2>
-            {{ form_start(form, {action: '', method: 'POST'}) }}
-            {{ form_end(form) }}
         </div>
     </div>
 

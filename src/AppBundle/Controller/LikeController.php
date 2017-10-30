@@ -12,6 +12,7 @@ use BackendBundle\Entity\Like;
 use BackendBundle\Entity\Publication;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class LikeController extends Controller{
 
@@ -55,5 +56,35 @@ class LikeController extends Controller{
         }
 
         return new Response($status);
+    }
+
+    public function likesAction(Request $request, $nickname = null){
+        $em = $this->getDoctrine()->getManager();
+
+        if($nickname != null){
+            $user_repo = $em->getRepository('BackendBundle:User');
+            $user = $user_repo->findOneBy(array('nick' => $nickname));
+        }else{
+            $user = $this->getUser();
+        }
+        if (empty($user) ||!is_object($user)){
+            return $this->redirect($this->generateUrl('home_publications') );
+        }else{
+            $user_id = $user->getId();
+            $dql = "SELECT l FROM BackendBundle:Like l WHERE l.user = $user_id ORDER BY l.id DESC";
+            $query = $em->createQuery($dql);
+
+            $paginator = $this->get('knp_paginator');
+            $likes = $paginator->paginate(
+                $query,
+                $request->query->getInt('page',1),
+                5
+            );
+        }
+
+        return $this->render('AppBundle:Like:likes.html.twig', array(
+            'profile_user' => $user,
+            'pagination' => $likes
+        ));
     }
 }
