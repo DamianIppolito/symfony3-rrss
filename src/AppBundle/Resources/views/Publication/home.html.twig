@@ -104,6 +104,10 @@
             {% for key,value in app.user | user_stats %}
                 {% if key == 'Siguiendo' %}
                     {% set href = path('following_users',{'nickname': app.user.nick}) %}
+                {% elseif key == 'Seguidores'%}
+                    {% set href = path('followed_users',{'nickname': app.user.nick}) %}
+                {% elseif key == 'Publicaciones'%}
+                    {% set href = path('user_profile',{'nickname': app.user.nick}) %}
                 {% else %}
                     {% set href = '' %}
                 {% endif %}
