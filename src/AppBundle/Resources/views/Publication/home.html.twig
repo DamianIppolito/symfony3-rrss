@@ -102,8 +102,13 @@
             </div>
             <div class="clearfix"></div>
             {% for key,value in app.user | user_stats %}
+                {% if key == 'Siguiendo' %}
+                    {% set href = path('following_users',{'nickname': app.user.nick}) %}
+                {% else %}
+                    {% set href = '' %}
+                {% endif %}
                 <div class="following-data">
-                    <a href="#">
+                    <a href="{{ href }}">
                         <span class="label-stat">
                             {{ key }}
                         </span>
