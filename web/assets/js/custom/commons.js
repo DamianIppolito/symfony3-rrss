@@ -15,7 +15,7 @@ function notifications() {
 }
 
 function show_or_hide_notifications() {
-    if($('.label-notifications').text == 0){
+    if($('.label-notifications').text() == 0){
         $('.label-notifications').addClass('hidden');
     }else{
         $('.label-notifications').removeClass('hidden');

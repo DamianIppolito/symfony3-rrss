@@ -22,6 +22,9 @@ class NotificationController extends Controller{
             5
         );
 
+        $notification = $this->get('app.notification_service');
+        $notification->read($user);
+
         return $this->render('@App/Notification/notifications.html.twig', array(
             'user' => $user,
             'pagination' => $notifications
