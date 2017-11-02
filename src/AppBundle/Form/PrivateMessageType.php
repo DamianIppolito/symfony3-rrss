@@ -22,7 +22,7 @@ class PrivateMessageType extends AbstractType
             ->add('receiver', EntityType::class, array(
                 'class' => 'BackendBundle:User',
                 'query_builder' => function($er) use($user){
-                    return $er->createQueryBuilder('u');
+                    return $er->getFollowingUsers($user);
                 },
                 'choice_label' => function($user){
                     return $user->getName() . ' ' . $user->getSurname() . ' - ' . $user->getNick();
