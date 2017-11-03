@@ -82,6 +82,7 @@ class PrivateMessageController extends Controller{
         }
 
         $private_messages = $this->getPrivateMessages($request, 'recieved');
+        $this->setReaded($em, $user);
 
         return $this->render('@App/PrivateMessage/index.html.twig',array(
             'form' => $form->createView(),
@@ -124,5 +125,22 @@ class PrivateMessageController extends Controller{
         $private_message_repo = $em->getRepository('BackendBundle:PrivateMessage');
         $count_not_readed_msg = count($private_message_repo->findBy(array('receiver' => $user, 'readed' => 0)));
         return new Response($count_not_readed_msg);
+    }
+
+    private function setReaded($em, $user){
+        $private_message_repo = $em->getRepository('BackendBundle:PrivateMessage');
+        $messages = $private_message_repo->findBy(array('receiver' => $user, 'readed' => 0));
+        foreach ($messages as $message){
+            $message->setReaded(1);
+            $em->persist($message);
+        }
+        $flush = $em->flush();
+        if($flush == null){
+            $result = true;
+        }else{
+            $result = false;
+        }
+
+        return $result;
     }
 }
