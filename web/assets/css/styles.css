@@ -141,6 +141,9 @@ body{background: #eeeeee}
     margin: 0 auto;
     text-align: center;
 }
+
+.profile-box #user-profile-info .name-surname .buttons-following{margin-top: 20px;}
+
 .profile-box #user-profile-info .bio{
     text-align: center;
     padding: 20px;
