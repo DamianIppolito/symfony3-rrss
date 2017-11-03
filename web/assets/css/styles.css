@@ -160,3 +160,7 @@ body{background: #eeeeee}
     border-top: none;
     margin-top: 0px;
 }
+
+
+/* MENSAJES PRIVADOS */
+.box-private-message input, .box-private-message select, .box-private-message textarea {margin-bottom: 10px;}

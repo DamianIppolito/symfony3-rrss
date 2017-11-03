@@ -81,8 +81,11 @@ class PrivateMessageController extends Controller{
             return $this->redirectToRoute('private_message_index');
         }
 
+        $private_messages = $this->getPrivateMessages($request, 'recieved');
+
         return $this->render('@App/PrivateMessage/index.html.twig',array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'pagination' => $private_messages
         ));
     }
 
